@@ -485,6 +485,7 @@ export default function App() {
             }
             onToggleCompleted={() => handleToggleLessonCompleted(2)}
             onOpenInDocs={() => handleOpenInDocs(2)}
+            onShowToast={addToast}
           />
         )}
 

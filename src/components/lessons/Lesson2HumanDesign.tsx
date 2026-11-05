@@ -1,5 +1,15 @@
-import React from 'react';
-import { ExternalLink, Check, ShieldAlert, Sparkles, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+  ExternalLink,
+  Check,
+  ShieldAlert,
+  Sparkles,
+  MessageSquare,
+  ChevronDown,
+  ChevronUp,
+  Copy,
+  Bot,
+} from 'lucide-react';
 
 interface StrategyItem {
   notObserved: boolean;
@@ -18,7 +28,12 @@ interface Lesson2Props {
   ) => void;
   onToggleCompleted: () => void;
   onOpenInDocs: () => void;
+  onShowToast?: (type: 'success' | 'error' | 'info', title: string, message?: string) => void;
 }
+
+const GEMINI_INITIAL_PROMPT = `Sou estudante do 2º ano do ensino médio e estou criando uma política de uso de IA para estudar sem deixar de aprender. Quero conversar com você para fazer um brainstorming e pensar em ideias. Atue como um tutor e não me dê respostas prontas.
+
+Podemos começar?`;
 
 export const Lesson2HumanDesign: React.FC<Lesson2Props> = ({
   curiosity,
@@ -29,7 +44,31 @@ export const Lesson2HumanDesign: React.FC<Lesson2Props> = ({
   onUpdateStrategy,
   onToggleCompleted,
   onOpenInDocs,
+  onShowToast,
 }) => {
+  const [showPromptAccordion, setShowPromptAccordion] = useState(true);
+  const [copiedPrompt, setCopiedPrompt] = useState(false);
+
+  const handleCopyPrompt = async () => {
+    try {
+      await navigator.clipboard.writeText(GEMINI_INITIAL_PROMPT);
+      setCopiedPrompt(true);
+      setTimeout(() => setCopiedPrompt(false), 2500);
+      if (onShowToast) {
+        onShowToast(
+          'success',
+          'Prompt copiado com sucesso!',
+          'Cole no Gemini para iniciar sua conversa.'
+        );
+      }
+    } catch (err) {
+      console.error('Falha ao copiar prompt:', err);
+      if (onShowToast) {
+        onShowToast('error', 'Falha ao copiar', 'Selecione e copie o texto manualmente.');
+      }
+    }
+  };
+
   const strategies = [
     {
       key: 'curiosity' as const,
@@ -112,6 +151,85 @@ export const Lesson2HumanDesign: React.FC<Lesson2Props> = ({
           <span>
             <strong>Aviso de privacidade:</strong> Não coloque nomes, contatos ou dados pessoais de ninguém nas transcrições.
           </span>
+        </div>
+
+        {/* Painel Retrátil: Prompt Inicial do Gemini */}
+        <div className="mt-6 border border-purple-200 rounded-xl overflow-hidden bg-purple-50/40 shadow-2xs">
+          <button
+            type="button"
+            onClick={() => setShowPromptAccordion(!showPromptAccordion)}
+            aria-expanded={showPromptAccordion}
+            className="w-full flex items-center justify-between p-4 text-left font-bold text-sm text-purple-950 hover:bg-purple-100/50 transition-colors cursor-pointer"
+          >
+            <div className="flex items-center gap-2.5">
+              <Bot className="w-5 h-5 text-purple-600 shrink-0" />
+              <div>
+                <span className="block text-sm font-bold text-purple-950">
+                  Prompt inicial para iniciar a conversa com o Gemini
+                </span>
+                <span className="block text-xs font-normal text-purple-700">
+                  Clique para {showPromptAccordion ? 'ocultar' : 'exibir'} o comando de abertura do diálogo investigativo
+                </span>
+              </div>
+            </div>
+            {showPromptAccordion ? (
+              <ChevronUp className="w-5 h-5 text-purple-700 shrink-0" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-purple-700 shrink-0" />
+            )}
+          </button>
+
+          {showPromptAccordion && (
+            <div className="p-4 pt-1 border-t border-purple-100 space-y-3 bg-white/70">
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Copie o prompt abaixo e cole no Google Gemini como sua primeira mensagem. Mantenha um diálogo de <strong>6 a 8 trocas de mensagens</strong> atuando em conjunto com a IA antes de preencher os campos desta aula:
+              </p>
+
+              <div className="bg-slate-50 p-4 rounded-xl border border-purple-200/80 text-slate-800 text-xs sm:text-sm whitespace-pre-wrap leading-relaxed font-sans shadow-2xs">
+                {GEMINI_INITIAL_PROMPT}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <span className="text-xs text-purple-800 font-medium">
+                  Dica: Peça sugestões e compare as respostas da IA com as 4 estratégias abaixo.
+                </span>
+
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://gemini.google.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-purple-700 bg-white hover:bg-purple-50 border border-purple-200 rounded-lg transition-colors cursor-pointer shadow-2xs"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    Abrir Google Gemini
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={handleCopyPrompt}
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer shadow-xs ${
+                      copiedPrompt
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-purple-600 hover:bg-purple-700 text-white'
+                    }`}
+                  >
+                    {copiedPrompt ? (
+                      <>
+                        <Check className="w-3.5 h-3.5" />
+                        Copiado!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        Copiar Prompt
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Tabela de Estratégias */}
