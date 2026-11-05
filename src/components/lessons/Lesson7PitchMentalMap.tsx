@@ -292,9 +292,6 @@ export const Lesson7PitchMentalMap: React.FC<Lesson7Props> = ({
             <h3 className="text-lg font-bold text-slate-900">
               Parte 1 — Política Final de Uso de IA na Escola
             </h3>
-            <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
-              Alimenta a Aula 8 (Apresentação)
-            </span>
           </div>
 
           {/* 1. Princípio */}
