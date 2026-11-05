@@ -44,7 +44,7 @@ export const LESSON_TITLES: Record<number, string> = {
 // ---------------- HTML & TEXT FORMATTERS PER LESSON ---------------- //
 
 function formatLesson1Html(state: CadernoState): string {
-  const url = state.adminGameUrl || 'https://augmelo.github.io/radar-cognitvo/';
+  const url = state.adminGameUrl || 'https://startbyaluramain.github.io/radar-cognitivo/';
   return `
     <h2 style="color: #0284c7; font-size: 14pt; margin-top: 12pt;">Aula 1 — Seu cérebro X IA</h2>
     <p style="font-style: italic; color: #475569;">Jogo: Radar Cognitivo (Alura Start)</p>
@@ -57,8 +57,8 @@ function formatLesson1Html(state: CadernoState): string {
 }
 
 function formatLesson1Text(state: CadernoState): string {
-  const url = state.adminGameUrl || 'https://augmelo.github.io/radar-cognitvo/';
-  return `=== AULA 1 — SEU CÉREBRO X IA ===\nJogo: Radar Cognitivo (Alura Start)\nLink do jogo: ${url}\nReflexão da aula: Depois do jogo, pense: com o que a IA pode ajudar e o que a IA não pode substituir?\n`;
+  const url = state.adminGameUrl || 'https://startbyaluramain.github.io/radar-cognitivo/';
+  return `=== AULA 1 — SEU CÉREBRO x IA ===\nJogo: Radar Cognitivo (Alura Start)\nLink do jogo: ${url}\nReflexão da aula: Depois do jogo, pense: com o que a IA pode ajudar e o que a IA não pode substituir?\n`;
 }
 
 function formatLesson2Html(state: CadernoState): string {

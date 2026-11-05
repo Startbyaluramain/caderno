@@ -1,8 +1,3 @@
-/**
- * Tipos de dados e esquema para o Caderno de Metacognição — IA na Escola
- * Versão 3: Reorganização das 8 aulas conforme a especificação pedagógica
- */
-
 export const CURRENT_SCHEMA_VERSION = 3;
 
 export interface ProfileSummary {
@@ -202,7 +197,7 @@ export interface CadernoState {
   };
 }
 
-export const DEFAULT_RADAR_COGNITIVO_URL = 'https://augmelo.github.io/radar-cognitvo/';
+export const DEFAULT_RADAR_COGNITIVO_URL = 'https://startbyaluramain.github.io/radar-cognitivo/';
 export const DEFAULT_RADAR_COGNITVO_URL = DEFAULT_RADAR_COGNITIVO_URL;
 
 export const FIXED_PRINCIPLE_TEXT =

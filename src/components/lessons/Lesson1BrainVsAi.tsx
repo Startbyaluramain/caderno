@@ -12,7 +12,7 @@ export const Lesson1BrainVsAi: React.FC<Lesson1Props> = ({
   isCompleted,
   onToggleCompleted,
 }) => {
-  const urlToUse = gameUrl || 'https://augmelo.github.io/radar-cognitvo/';
+  const urlToUse = gameUrl || 'https://startbyaluramain.github.io/radar-cognitivo/';
 
   return (
     <div className="space-y-6">
@@ -24,7 +24,7 @@ export const Lesson1BrainVsAi: React.FC<Lesson1Props> = ({
               Aula 1
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2 font-display">
-              Seu cérebro X IA
+              Seu cérebro x IA
             </h2>
           </div>
 
